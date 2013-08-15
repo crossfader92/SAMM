@@ -4,7 +4,7 @@ class View{
 	// path for the template
 	private $path = 'templates';
 	// name of the default template
-	private $template = 'default';
+	private $template = 'overview';
 
 	/**
 	 * ontains are vars that are used for the template

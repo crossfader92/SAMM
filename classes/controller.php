@@ -26,24 +26,14 @@ class Controller{
 	public function display(){
 		$view = new View();
 		switch($this->template){
-			case 'entry':
-				$view->setTemplate('entry');
-				$entryid = $this->request['id'];
-				$entry = Model::getEntry($entryid);
-				$view->assign('title', $entry['title']);
-				$view->assign('content', $entry['content']);
-				break;
 				
 			case 'default':
 			default:
-				$entries = Model::getOverview();
+				$month = $this->request['monat'];  
+				$entries = Model::getOverview(time(), $month, $view);
 				$view->setTemplate('default');
-				$view->assign('entries', $entries);
 		}
-		$this->view->setTemplate('theblog');
-		$this->view->assign('blog_title', 'Der Titel des Blogs');
-		$this->view->assign('blog_footer', 'Ein Blog von und mit MVC');
-		$this->view->assign('blog_content', $view->loadTemplate());
+		$this->view->setTemplate('overview');
 		return $this->view->loadTemplate();
 	}
 }

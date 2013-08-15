@@ -2,19 +2,26 @@
 /**
  * class for the data access
  */
-class Model{
+ date_default_timezone_set('UTC');
+ 
+class Model{	
+	
+	function __construct(){
+
+	}
 
 	private static $mysqlData = array(
-	'host' => 'localhost';
-	'user' => 'root';
-	'password' => 'root';
-	'db' => 'wgverwaltung';
+	'host' => 'localhost',
+	'user' => 'root',
+	'password' => 'root',
+	'db' => 'wgverwaltung'
 	);
 	
-	private static function connectDb(){
+	
+	public static function connectDb(){
 		$connection = mysql_connect (self::$mysqlData['host'], self::$mysqlData['user'], self::$mysqlData['password'])
 		or die ("Connection failed. Username or Password might be wrong");
-		mysql_select_db("$db")
+		mysql_select_db(self::$mysqlData['db'])
 		or die ("The selected Database is not existing.");
 	}
 
@@ -23,8 +30,10 @@ class Model{
 	 *
 	 * @todo return proper source code or data
 	 */
-	public static function getOverview(){
-				@$monat = mysql_real_escape_string(htmlspecialchars($_GET["monat"]));
+	public static function getOverview($timestamp, $monat, $view){
+		
+		self::connectDb();
+		
 		if(empty($monat)){
 			$monat = date('m.Y', $timestamp);
 		}
@@ -40,7 +49,7 @@ class Model{
 		if(!in_array(date('m.Y'), $monate)){
 			$monate[] = date('m.Y');
 		}
-		$finanzen_jan = '';
+		$view->assign('finanzen_jan', 'a');
 		$description_jan = '';
 		$del_jan = '';
 		$gesamt_jan = '0';

@@ -9,7 +9,7 @@
 	<div id="jan" >
 		<h1>Jan</h1>
 		<div style="float:left;">
-			<?php echo $this->_['$finanzen_jan'];?><br>
+			<?php echo $this->_['finanzen_jan'];?><br>
 		</div>
 		<div style="float:left;">
 			<?php echo $this->_['$description_jan'];?><br>
