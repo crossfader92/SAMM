@@ -29,12 +29,13 @@ class Controller{
 				
 			case 'default':
 			default:
-				$month = $this->request['monat'];  
-				$entries = Model::getOverview(time(), $month, $view);
+				$month =  date('m.Y', time());
+				$finance = Model::getfinance("Jan", $month);
+				$view->assign('finance', $finance );
 				$view->setTemplate('default');
 		}
-		$this->view->setTemplate('overview');
-		return $this->view->loadTemplate();
+		$view->setTemplate('overview');
+		return $view->loadTemplate();
 	}
 }
 ?>
