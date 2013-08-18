@@ -12,29 +12,29 @@
 			<?php echo $this->_['finance'][0][0];?><br>
 		</div>
 		<div style="float:left;">
-			<?php echo $this->_['$description_jan'];?><br>
+			<?php echo $this->_['finance'][0][1];?><br>
 		</div>
 		<div>
-			<?php echo $this->_['$del_jan'];?><br>
+			<?php echo $this->_['finance'][0][2];?><br>
 		</div>
-		gesamt bezahlt: <?php echo $this->_['$gesamt_jan'];?>&euro;<br>
-		1/2 Anteil: <?php echo $this->_['$half_jan'];?>&euro;
+		gesamt bezahlt: <?php echo $this->_['finance'][0][3];?>&euro;<br>
+		1/2 Anteil: <?php echo $this->_['finance'][0][4];?>&euro;
 	</div>
 </div>
 <div class="span3 well">
 	<div id="kevin">
 		<h1>Kevin</h1>
 		<div style="float:left;">
-			<?php echo $this->_['$finanzen_kevin'];?><br>
+			<?php echo $this->_['finance'][1][0];?><br>
 		</div>
 		<div style="float:left;">
-			<?php echo $this->_['$description_kevin'];?><br>
+			<?php echo $this->_['finance'][1][1];?><br>
 		</div>
 		<div>
-			<?php echo $this->_['$del_kevin'];?><br>
+			<?php echo $this->_['finance'][1][2];?><br>
 		</div>
-		gesamt bezahlt: <?php echo $this->_['$gesamt_kevin'];?>&euro;<br>
-		1/2 Anteil: <?php echo $this->_['$half_kevin'];?>&euro;
+		gesamt bezahlt: <?php echo $this->_['finance'][1][3];?>&euro;<br>
+		1/2 Anteil: <?php echo $this->_['finance'][1][4];?>&euro;
 	</div>
 </div>
 <div style="width: 78%"class="span6 alert alert-error">

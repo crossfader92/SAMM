@@ -26,45 +26,54 @@ class Model{
 	}
 
 	/**
-	 * return a finance overview
+	 * return [0] value, [1] description, [2] delete link, [3] total sum, [4] half sum
 	 *
 	 * @todo return proper source code or data
 	 */
-	public static function getFinance($user, $month){
+	public static function getFinance($user,$month){
 	self::connectDb();
-	if(empty($monat)){
-			$monat = date('m.Y', time());
-		}
-	$month = array();
-		$query = "SELECT timestamp FROM finanzen WHERE user = '$user'";
-		$result = mysql_query($query);
-		while($row = mysql_fetch_object($result)){
-			$month_db = date('m.Y', $row->timestamp);
-			if(!in_array($month_db, $month) && !empty($month_db)){
-				$month[] = $month_db;			
+	
+	$users = explode(',',$user);
+	$uservars = array(array('','','','',''));
+	$index = 0;
+	
+	foreach ($users as $user){
+		if(empty($monat)){
+				$monat = date('m.Y', time());
 			}
-		}
-		if(!in_array(date('m.Y'), $month)){
-			$month[] = date('m.Y');
-		}
-		
-		$uservars = array(array('','','','',''));
-		
-		$abfrage = "SELECT * FROM finanzen WHERE user LIKE '$user'";
-		$ergebnis = mysql_query($abfrage);
-		
-		$i = 0;
-		while($row = mysql_fetch_object($ergebnis)){
-			if(date('m.Y', $row->timestamp) == $monat){
-				$uservars[$i][0] .= $row->betrag.'&euro;&nbsp;&nbsp;<br>';
-				$uservars[$i][1] .= $row->description.'<br>';
-				$uservars[$i][2] .= '&nbsp;&nbsp;<a href="?script=finanzen&action=del&id='.$row->id.'">l&oumlschen</a><br>';
-				$uservars[$i][3] = $uservars[$i][3] + $row->betrag;
-				$uservars[$i][4] = round($uservars[$i][3] / 2, 2);
-				$i++;
+		$month = array();
+			$query = "SELECT timestamp FROM finanzen WHERE user = '$user'";
+			$result = mysql_query($query);
+			while($row = mysql_fetch_object($result)){
+				$month_db = date('m.Y', $row->timestamp);
+				if(!in_array($month_db, $month) && !empty($month_db)){
+					$month[] = $month_db;			
+				}
 			}
+			if(!in_array(date('m.Y'), $month)){
+				$month[] = date('m.Y');
+			}
+			
+
+			
+			
+			$abfrage = "SELECT * FROM finanzen WHERE user LIKE '$user'";
+			$ergebnis = mysql_query($abfrage);
+			
+			
+			while($row = mysql_fetch_object($ergebnis)){
+				if(date('m.Y', $row->timestamp) == $monat){
+					$uservars[$index][0] .= $row->betrag.'&euro;&nbsp;&nbsp;<br>';
+					$uservars[$index][1] .= $row->description.'<br>';
+					$uservars[$index][2] .= '&nbsp;&nbsp;<a href="?script=finanzen&action=del&id='.$row->id.'">l&oumlschen</a><br>';
+					$uservars[$index][3] = $uservars[$index][3] + $row->betrag;
+					$uservars[$index][4] = round($uservars[$index][3] / 2, 2);
+					
+				}
+			}
+			$index++;
 		}
-		return $uservars;
+	return $uservars;
 	}
 	
 	 

@@ -30,7 +30,7 @@ class Controller{
 			case 'default':
 			default:
 				$month =  date('m.Y', time());
-				$finance = Model::getfinance("Jan", $month);
+				$finance = Model::getfinance("Jan,Kevin", $month);
 				$view->assign('finance', $finance );
 				$view->setTemplate('default');
 		}
