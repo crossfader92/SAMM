@@ -5,38 +5,30 @@
 	<h1 align=center style="color: #222;text-shadow: 0px 2px 3px #555;"><?php foreach($this->_['$monate'] AS $monat){echo '<a href="?script=finanzen&monat='.$monat.'">'.$monat.'</a><br>';}?></h1>
 	<br />
 	</div>
-<div class="span3 well">
-	<div id="jan" >
-		<h1>Jan</h1>
-		<div style="float:left;">
-			<?php echo $this->_['finance'][0][0];?><br>
-		</div>
-		<div style="float:left;">
-			<?php echo $this->_['finance'][0][1];?><br>
-		</div>
-		<div>
-			<?php echo $this->_['finance'][0][2];?><br>
-		</div>
-		gesamt bezahlt: <?php echo $this->_['finance'][0][3];?>&euro;<br>
-		1/2 Anteil: <?php echo $this->_['finance'][0][4];?>&euro;
+<?php
+for ($i = 0; $i <= count($this->_['finance']); $i++){
+
+echo '<div class="span3 well">
+	<div id="$i" >
+		<h1>$i</h1>
+		<div style="float:left;">';
+echo $this->_['finance'][$i][0];
+echo '<br></div>
+		<div style="float:left;">';
+echo $this->_['finance'][$i][1];
+echo '<br></div>
+		<div>';
+echo $this->_['finance'][$i][2];
+echo '<br></div>gesamt bezahlt:';
+echo $this->_['finance'][$i][3];
+echo '&euro;<br>
+		1/2 Anteil:';
+echo $this->_['finance'][$i][4];
+echo '&euro;
 	</div>
-</div>
-<div class="span3 well">
-	<div id="kevin">
-		<h1>Kevin</h1>
-		<div style="float:left;">
-			<?php echo $this->_['finance'][1][0];?><br>
-		</div>
-		<div style="float:left;">
-			<?php echo $this->_['finance'][1][1];?><br>
-		</div>
-		<div>
-			<?php echo $this->_['finance'][1][2];?><br>
-		</div>
-		gesamt bezahlt: <?php echo $this->_['finance'][1][3];?>&euro;<br>
-		1/2 Anteil: <?php echo $this->_['finance'][1][4];?>&euro;
-	</div>
-</div>
+</div>';
+}
+?>
 <div style="width: 78%"class="span6 alert alert-error">
 <?php
 switch ($schulden){
