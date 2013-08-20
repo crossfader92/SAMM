@@ -41,18 +41,7 @@ class Model{
 		if(empty($monat)){
 				$monat = date('m.Y', time());
 			}
-		$month = array();
-			$query = "SELECT timestamp FROM finanzen WHERE user = '$user'";
-			$result = mysql_query($query);
-			while($row = mysql_fetch_object($result)){
-				$month_db = date('m.Y', $row->timestamp);
-				if(!in_array($month_db, $month) && !empty($month_db)){
-					$month[] = $month_db;			
-				}
-			}
-			if(!in_array(date('m.Y'), $month)){
-				$month[] = date('m.Y');
-			}
+		$month = self::getMonthByUser($user);
 			
 
 			
@@ -68,12 +57,49 @@ class Model{
 					$uservars[$index][2] .= '&nbsp;&nbsp;<a href="?script=finanzen&action=del&id='.$row->id.'">l&oumlschen</a><br>';
 					$uservars[$index][3] = $uservars[$index][3] + $row->betrag;
 					$uservars[$index][4] = round($uservars[$index][3] / 2, 2);
+					$uservars[$index][5] = $user;
 					
 				}
 			}
 			$index++;
 		}
 	return $uservars;
+	}
+	
+	public static function getMonthByUser($user){
+	
+	$month = array();
+			$query = "SELECT timestamp FROM finanzen WHERE user = '$user'";
+			$result = mysql_query($query);
+			while($row = mysql_fetch_object($result)){
+				$month_db = date('m.Y', $row->timestamp);
+				if(!in_array($month_db, $month) && !empty($month_db)){
+					$month[] = $month_db;			
+				}
+			}
+			if(!in_array(date('m.Y'), $month)){
+				$month[] = date('m.Y');
+			}
+	return $month;
+	
+	}
+	
+	public static function getAllMonth(){
+	
+	$month = array();
+			$query = "SELECT timestamp FROM finanzen";
+			$result = mysql_query($query);
+			while($row = mysql_fetch_object($result)){
+				$month_db = date('m.Y', $row->timestamp);
+				if(!in_array($month_db, $month) && !empty($month_db)){
+					$month[] = $month_db;			
+				}
+			}
+			if(!in_array(date('m.Y'), $month)){
+				$month[] = date('m.Y');
+			}
+	return $month;
+	
 	}
 	
 	 

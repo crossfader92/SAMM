@@ -2,15 +2,19 @@
 <div class="span2">&nbsp;</div>
 <div class="span8">
 <div class="span7">
-	<h1 align=center style="color: #222;text-shadow: 0px 2px 3px #555;"><?php foreach($this->_['$monate'] AS $monat){echo '<a href="?script=finanzen&monat='.$monat.'">'.$monat.'</a><br>';}?></h1>
+	<h1 align=center style="color: #222;text-shadow: 0px 2px 3px #555;"><?php foreach($this->_['allmonth'] AS $monat){echo '<a href="?script=finanzen&monat='.$monat.'">'.$monat.'</a><br>';}?></h1>
 	<br />
 	</div>
 <?php
-for ($i = 0; $i <= count($this->_['finance']); $i++){
+for ($i = 0; $i < count($this->_['finance']); $i++){
 
 echo '<div class="span3 well">
-	<div id="$i" >
-		<h1>$i</h1>
+	<div id="';
+echo $this->_['finance'][$i][5];
+echo '" >
+		<h1>';
+echo $this->_['finance'][$i][5];
+echo '</h1>
 		<div style="float:left;">';
 echo $this->_['finance'][$i][0];
 echo '<br></div>
