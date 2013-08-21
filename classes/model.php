@@ -102,6 +102,33 @@ class Model{
 	
 	}
 	
+	private static function getSchuldenFazit($finance){
+	
+	foreach ($finance as $user){
+	
+	
+	}
+	
+	
+	if($half_jan != 0 && $half_kevin != 0){
+			if($half_jan > $half_kevin){
+				$schulden_kevin = ($half_jan - $half_kevin);
+				$schulden = 'kevin';
+			}else{
+				$schulden_jan = ($half_kevin - $half_jan);
+				$schulden = 'jan';
+			}
+		}else{
+			if($half_jan > $half_kevin){
+				$schulden_kevin = $half_jan;
+				$schulden = 'kevin';
+			}else{
+				$schulden_jan = $half_kevin;
+				$schulden = 'jan';
+			}
+	
+	}
+	
 	 
 	// public static function getOverview($timestamp, $monat){
 		
