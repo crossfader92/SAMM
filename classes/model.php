@@ -104,8 +104,19 @@ class Model{
 	
 	private static function getSchuldenFazit($finance){
 	
-	foreach ($finance as $user){
+	$users = count($finance);
+	$empty = false;
 	
+	for ($i = 0; $i < $users; $i++{
+		if($finance[$i][4] == 0){
+			$empty == true;
+		} 
+	}
+	
+	if (!$empty)
+	{
+	
+	}
 	
 	}
 	
