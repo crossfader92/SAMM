@@ -56,7 +56,7 @@ class Model{
 					$uservars[$index][1] .= $row->description.'<br>';
 					$uservars[$index][2] .= '&nbsp;&nbsp;<a href="?script=finanzen&action=del&id='.$row->id.'">l&oumlschen</a><br>';
 					$uservars[$index][3] = $uservars[$index][3] + $row->betrag;
-					$uservars[$index][4] = round($uservars[$index][3] / 2, 2);
+					$uservars[$index][4] = round($uservars[$index][3], 2);
 					$uservars[$index][5] = $user;
 					
 				}
@@ -102,43 +102,53 @@ class Model{
 	
 	}
 	
-	private static function getSchuldenFazit($finance){
+	public static function getSchuldenFazit($finance){
 	
 	$users = count($finance);
 	$empty = false;
+	$total = 0;
 	
-	for ($i = 0; $i < $users; $i++{
+	for ($i = 0; $i < $users; $i++){
 		if($finance[$i][4] == 0){
 			$empty == true;
 		} 
 	}
 	
-	if (!$empty)
-	{
+	if (!$empty){
+		
+		
+		for ($i = 0; $i < $users; $i++){
+			
+			$total += $finance[$i][4];
+			
+		} 
+		
+		//the average that should be paid by every user
+		$average = $total / $users;
+		
+		for ($i = 0; $i < $users; $i++){
+			
+			array_push($finance[$i], $average - $finance[$i][4]);
+			
+		} 
+		
+	// calculaate who gets money and who owes
+	// 4-0 = 4
+	// 4-10 = -6 // gets
+	// 4-2 = 2 //owes
 	
+	$conclusion = '<br><br>Conclusion: ';
+	
+	for ($i = 0; $i < $users; $i++){
+	$conclusion .= $finance[$i][5] . ' has ' . $finance[$i][6] . '.<br>';
+	}
+	
+	return $conclusion;
+	}
 	}
 	
 	}
-	
-	
-	if($half_jan != 0 && $half_kevin != 0){
-			if($half_jan > $half_kevin){
-				$schulden_kevin = ($half_jan - $half_kevin);
-				$schulden = 'kevin';
-			}else{
-				$schulden_jan = ($half_kevin - $half_jan);
-				$schulden = 'jan';
-			}
-		}else{
-			if($half_jan > $half_kevin){
-				$schulden_kevin = $half_jan;
-				$schulden = 'kevin';
-			}else{
-				$schulden_jan = $half_kevin;
-				$schulden = 'jan';
-			}
-	
-	}
+
 	
 	 
 	// public static function getOverview($timestamp, $monat){
@@ -210,5 +220,5 @@ class Model{
 	// }
 
 
-}
+
 ?>

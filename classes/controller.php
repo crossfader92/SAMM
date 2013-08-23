@@ -32,7 +32,9 @@ class Controller{
 				$month =  date('m.Y', time());
 				$finance = Model::getfinance("Jan,Kevin", $month);
 				$allmonth = Model::getAllMonth();
-				$schuldenfazit = Model::getSchuldenFazit($finance);
+				$conclusion = Model::getSchuldenFazit($finance);
+				
+				$view->assign('conclusion', $conclusion);
 				$view->assign('allmonth', $allmonth);
 				$view->assign('finance', $finance );
 				$view->setTemplate('default');

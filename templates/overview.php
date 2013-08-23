@@ -35,15 +35,7 @@ echo '&euro;
 ?>
 <div style="width: 78%"class="span6 alert alert-error">
 <?php
-switch ($schulden){
-	case "jan":
-		$fazit = 'Jan schuldet Kevin '.$this->_['$schulden_jan'].'&euro;';
-	break;
-	case "kevin":
-		$fazit = 'Kevin schuldet Jan '.$this->_['$schulden_kevin'].'&euro;';
-	break;
-}
-echo $this->_['$fazit'];
+echo $this->_['conclusion'];
 ?>
 </div>
 </div>
