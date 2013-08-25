@@ -137,6 +137,13 @@ class Model{
 	// 4-10 = -6 // gets
 	// 4-2 = 2 //owes
 	
+	// 1. find out who has to pay how much money (A 4)
+	// 2. find out who should get how much money (B -6)
+	// 3. Try to pay A from the money of B
+	// 3.1. If the amount of B is less than zero, look who else has to pay money (recursive)
+	// 3.2. If the amount of B is equal to zero, print out the statistics
+	
+	
 	$conclusion = '<br><br>Conclusion: ';
 	
 	for ($i = 0; $i < $users; $i++){
