@@ -52,16 +52,18 @@ class Model{
 			
 			while($row = mysql_fetch_object($ergebnis)){
 				if(date('m.Y', $row->timestamp) == $monat){
-					$uservars[$index][0] .= $row->betrag.'&euro;&nbsp;&nbsp;<br>';
-					$uservars[$index][1] .= $row->description.'<br>';
-					$uservars[$index][2] .= '&nbsp;&nbsp;<a href="?script=finanzen&action=del&id='.$row->id.'">l&oumlschen</a><br>';
-					$uservars[$index][3] = $uservars[$index][3] + $row->betrag;
-					$uservars[$index][4] = round($uservars[$index][3], 2);
-					$uservars[$index][5] = $user;
+					$uservars[$index]['user'] = $user;
+					$uservars[$index]['id'] = $row->id;
+					$uservars[$index]['articlePrice'] .= $row->betrag . '|';
+					$uservars[$index]['articleDesc'] .= $row->description.'|';
+					$uservars[$index]['toPay'] = '';
+					$uservars[$index]['sum'] += $row->betrag;				
 					
 				}
 			}
+			$uservars[$index]['sum'] = round($uservars[$index]['sum'], 2);
 			$index++;
+			
 		}
 	return $uservars;
 	}
@@ -163,11 +165,15 @@ class Model{
 	
 	function foo($users, $finance, $average){
 	
-		foreach($fi in $finance){
-			if($fi[4] > $average){
-			foreach(
-			
-			}
+		foreach($finance as $a){
+			if($a[4] > $average){
+			foreach($finance as $b )(
+			$overhead = $a[4]-$average;
+				if ($overhead*-1 == b[4]){
+				echo 'A matches B.';				
+				}
+				if ($overhead == b[4]){
+				}
 		}
 	
 	}
