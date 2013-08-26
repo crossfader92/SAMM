@@ -7,7 +7,7 @@ class View{
 	private $template = 'overview';
 
 	/**
-	 * ontains are vars that are used for the template
+	 * Contains are vars that are used for the template
 	 * empty at first!
 	 */
 	private $_ = array();
