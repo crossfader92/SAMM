@@ -132,16 +132,23 @@ class Model{
 			
 		} 
 		
-	// calculaate who gets money and who owes
+	// calculate who gets money and who owes
 	// 4-0 = 4
 	// 4-10 = -6 // gets
 	// 4-2 = 2 //owes
 	
+	//avg:1
+	//2 2 0 0
+	//1 1 -1 -1
+	
+	var f = foo($users, $finance, $average);
+	
 	// 1. find out who has to pay how much money (A 4)
 	// 2. find out who should get how much money (B -6)
-	// 3. Try to pay A from the money of B
+	// 3. Try to pay B from the money of A
 	// 3.1. If the amount of B is less than zero, look who else has to pay money (recursive)
 	// 3.2. If the amount of B is equal to zero, print out the statistics
+	// 3.3. IF the amount of B is greater than zero, take the overhead and try to pay someone else
 	
 	
 	$conclusion = '<br><br>Conclusion: ';
@@ -152,6 +159,17 @@ class Model{
 	
 	return $conclusion;
 	}
+	}
+	
+	function foo($users, $finance, $average){
+	
+		foreach($fi in $finance){
+			if($fi[4] > $average){
+			foreach(
+			
+			}
+		}
+	
 	}
 	
 	}
