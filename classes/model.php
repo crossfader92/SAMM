@@ -104,81 +104,55 @@ class Model{
 	
 	}
 	
-	public static function getSchuldenFazit($finance){
-	
-	$users = count($finance);
-	$empty = false;
-	$total = 0;
-	
-	for ($i = 0; $i < $users; $i++){
-		if($finance[$i][4] == 0){
-			$empty == true;
-		} 
-	}
-	
-	if (!$empty){
+	public static 	function getSchuldenFazit($finance){
 		
-		
-		for ($i = 0; $i < $users; $i++){
-			
-			$total += $finance[$i][4];
-			
-		} 
-		
-		//the average that should be paid by every user
-		$average = $total / $users;
-		
-		for ($i = 0; $i < $users; $i++){
-			
-			array_push($finance[$i], $average - $finance[$i][4]);
-			
-		} 
-		
-	// calculate who gets money and who owes
-	// 4-0 = 4
-	// 4-10 = -6 // gets
-	// 4-2 = 2 //owes
-	
-	//avg:1
-	//2 2 0 0
-	//1 1 -1 -1
-	
-	var f = foo($users, $finance, $average);
-	
-	// 1. find out who has to pay how much money (A 4)
-	// 2. find out who should get how much money (B -6)
-	// 3. Try to pay B from the money of A
-	// 3.1. If the amount of B is less than zero, look who else has to pay money (recursive)
-	// 3.2. If the amount of B is equal to zero, print out the statistics
-	// 3.3. IF the amount of B is greater than zero, take the overhead and try to pay someone else
-	
-	
-	$conclusion = '<br><br>Conclusion: ';
-	
-	for ($i = 0; $i < $users; $i++){
-	$conclusion .= $finance[$i][5] . ' has ' . $finance[$i][6] . '.<br>';
-	}
-	
-	return $conclusion;
-	}
-	}
-	
-	function foo($users, $finance, $average){
-	
-		foreach($finance as $a){
-			if($a[4] > $average){
-			foreach($finance as $b )(
-			$overhead = $a[4]-$average;
-				if ($overhead*-1 == b[4]){
-				echo 'A matches B.';				
-				}
-				if ($overhead == b[4]){
-				}
+		$users = count($finance);
+		$empty = false;
+		$total = 0;
+		foreach($finance AS $financeUser){
+			$total += $financeUser['sum'];
 		}
-	
+		$average = round(($total / $users),2);
+		for ($i = 0; $i < $users; $i++){
+			$finance[$i]['toPay'] = $average - $finance[$i]['sum'];
+		}
+		for ($i = 0; $i < $users; $i++){
+			echo $finance[$i]['user'].$finance[$i]['toPay'].'<br>';
+			$tempInt = $i;
+			while(round($finance[$i]['toPay'],1) != 0){
+				$tempInt++;
+				if($finance[$i]['toPay'] > 0 && $finance[$tempInt]['toPay'] < 0){
+					if($finance[$i]['toPay'] < ($finance[$tempInt]['toPay'] *(-1))){
+						echo $finance[$i]['user'].' muss '.$finance[$tempInt]['user'].' '.$finance[$i]['toPay'].'&euro; bezahlen<br>';
+						$finance[$tempInt]['toPay'] += $finance[$i]['toPay'];
+						$finance[$i]['toPay'] -= $finance[$i]['toPay'];
+					}else{
+						echo $finance[$i]['user'].' muss '.$finance[$tempInt]['user'].' '.$finance[$tempInt]['toPay'] * (-1).'&euro; bezahlen<br>';
+						$tempFinance = $finance[$i]['toPay'];
+						$finance[$i]['toPay'] -= $finance[$tempInt]['toPay'] *(-1);
+						$finance[$tempInt]['toPay'] += $finance[$tempInt]['toPay'] *(-1);
+					}
+				}else if($finance[$i]['toPay'] < 0 && $finance[$tempInt]['toPay'] > 0){
+					if($finance[$i]['toPay'] < ($finance[$tempInt]['toPay'] *(-1))){
+						echo $finance[$i]['user'].' bekommt von '.$finance[$tempInt]['user'].' '.$finance[$tempInt]['toPay'].'&euro;<br>';
+						$finance[$i]['toPay'] += $finance[$tempInt]['toPay'];
+						$finance[$tempInt]['toPay'] -= $finance[$tempInt]['toPay'];
+					}else{
+						echo $finance[$i]['user'].' bekommt von '.$finance[$tempInt]['user'].' '.$finance[$i]['toPay']*(-1).'&euro;<br>';
+						$tempFinance = $finance[$i]['toPay'];
+						$finance[$i]['toPay'] -= $finance[$i]['toPay'];
+						$finance[$tempInt]['toPay'] -= $tempFinance * (-1);
+					}
+				}
+			}	
+		}
+		foreach($finance AS $financeUser){
+			echo $financeUser['user'].$financeUser['toPay'].'<br>';
+			
+		}
 	}
 	
-	}
+
 
 	
 	 
